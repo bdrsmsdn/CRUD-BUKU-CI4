@@ -29,9 +29,17 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/admin', 'Admin::index');
-$routes->get('/pengadaan', 'Pengadaan::index');
+$routes->get('/', 'Auth::index');
+$routes->post('/login', 'Auth::process');
+$routes->get('/admin/home', 'Home::index');
+
+$routes->get('/user/home', 'Home::index2');
+$routes->get('/user/belibuku/(:any)', 'User::editbuku/$1');
+$routes->post('/user/saveedit', 'User::update');
+$routes->get('/user/mybook', 'Pengadaan::index2');
+
+$routes->get('/admin/data', 'Admin::index');
+$routes->get('/admin/pengadaan', 'Pengadaan::index');
 $routes->post('/admin/addbuku', 'Admin::addbuku');
 $routes->get('/admin/editbuku/(:any)', 'Admin::editbuku/$1');
 $routes->get('/admin/deletebuku/(:any)', 'Admin::delete/$1');
@@ -40,6 +48,7 @@ $routes->post('/admin/addpenerbit', 'Admin::addpenerbit');
 $routes->get('/admin/editpenerbit/(:any)', 'Admin::editpenerbit/$1');
 $routes->get('/admin/deletepenerbit/(:any)', 'Admin::deletepenerbit/$1');
 $routes->post('/admin/saveeditpenerbit', 'Admin::updatepenerbit');
+$routes->get('/logout', 'Auth::logout');
 
 /*
  * --------------------------------------------------------------------

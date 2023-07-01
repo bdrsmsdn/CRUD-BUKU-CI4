@@ -15,7 +15,7 @@ class Admin extends BaseController
     public function editbuku($id)
     {
         return json_encode($this->model->findId($id));
-    }    
+    }
 
     public function addbuku()
     {
@@ -27,47 +27,47 @@ class Admin extends BaseController
                 'errors' => [
                     'required' => '{field} harus diisi!',
                     'min_length' => 'Jumlah minimal karakter untuk field {field} adalah 1 karakter.'
-                    ]
-                ],
+                ]
+            ],
             'no_buku' => [
                 'label' => 'ID Buku',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'kategori' => [
                 'label' => 'kategori',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'harga' => [
                 'label' => 'Harga',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'stok' => [
                 'label' => 'Stok',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'id_penerbit' => [
                 'label' => 'id_penerbit',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
-            ];
+                ]
+            ],
+        ];
 
         $validasi->setRules($aturan);
-        if($validasi->withRequest($this->request)->run()){
+        if ($validasi->withRequest($this->request)->run()) {
             $id_buku = $this->request->getPost('no_buku');
             $kategori = $this->request->getPost('kategori');
             $nama = $this->request->getPost('nama');
@@ -92,12 +92,12 @@ class Admin extends BaseController
             $hasil['sukses'] = false;
             $hasil['error'] = $validasi->listErrors();
         }
-        
+
         return json_encode($hasil);
     }
 
     public function index()
-    {        
+    {
         $katakunci = $this->request->getGet('katakunci');
         if ($katakunci) {
             $pencarian = $this->model->searchBuku($katakunci);
@@ -108,7 +108,7 @@ class Admin extends BaseController
         $data['dataBuku'] = $pencarian;
 
         $data['penerbit'] = $this->modelp->getPenerbit();
-        return view('admin_view', $data);
+        return view('admin/admin_view', $data);
     }
 
     public function update()
@@ -121,47 +121,47 @@ class Admin extends BaseController
                 'errors' => [
                     'required' => '{field} harus diisi!',
                     'min_length' => 'Jumlah minimal karakter untuk field {field} adalah 1 karakter.'
-                    ]
-                ],
+                ]
+            ],
             'no_buku' => [
                 'label' => 'ID Buku',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'kategori' => [
                 'label' => 'kategori',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'harga' => [
                 'label' => 'Harga',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'stok' => [
                 'label' => 'Stok',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'id_penerbit' => [
                 'label' => 'id_penerbit',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
-            ];
+                ]
+            ],
+        ];
 
         $validasi->setRules($aturan);
-        if($validasi->withRequest($this->request)->run()){
+        if ($validasi->withRequest($this->request)->run()) {
             $id_buku = $this->request->getPost('id_buku');
             $no_buku = $this->request->getPost('no_buku');
             $kategori = $this->request->getPost('kategori');
@@ -179,7 +179,7 @@ class Admin extends BaseController
                 'stok' => $stok,
                 'id_penerbit' => $id_penerbit
             ];
-        
+
             $this->model->updateBuku($id_buku, $data);
             // return redirect()->to('/admin');
             $hasil['sukses'] = 'Berhasil mengedit buku';
@@ -188,14 +188,14 @@ class Admin extends BaseController
             $hasil['sukses'] = false;
             $hasil['error'] = $validasi->listErrors();
         }
-    
-    return json_encode($hasil);
+
+        return json_encode($hasil);
     }
 
     public function delete($id)
     {
         $this->model->delete($id);
-        return redirect()->to('/admin');
+        return redirect()->to('/admin/data');
     }
 
     public function addpenerbit()
@@ -208,40 +208,40 @@ class Admin extends BaseController
                 'errors' => [
                     'required' => '{field} harus diisi!',
                     'min_length' => 'Jumlah minimal karakter untuk field {field} adalah 1 karakter.'
-                    ]
-                ],
+                ]
+            ],
             'no_penerbit' => [
                 'label' => 'ID Penerbit',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'alamat' => [
                 'label' => 'Alamat',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'kota' => [
                 'label' => 'Kota',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'telepon' => [
                 'label' => 'Telepon',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
-            ];
+                ]
+            ],
+        ];
 
         $validasi->setRules($aturan);
-        if($validasi->withRequest($this->request)->run()){
+        if ($validasi->withRequest($this->request)->run()) {
             $no_penerbit = $this->request->getPost('no_penerbit');
             $penerbit = $this->request->getPost('penerbit');
             $alamat = $this->request->getPost('alamat');
@@ -264,14 +264,14 @@ class Admin extends BaseController
             $hasil['sukses'] = false;
             $hasil['error'] = $validasi->listErrors();
         }
-        
+
         return json_encode($hasil);
     }
 
     public function deletepenerbit($id)
     {
         $this->modelp->delete($id);
-        return redirect()->to('/admin');
+        return redirect()->to('/admin/data');
     }
 
     public function editpenerbit($id)
@@ -289,40 +289,40 @@ class Admin extends BaseController
                 'errors' => [
                     'required' => '{field} harus diisi!',
                     'min_length' => 'Jumlah minimal karakter untuk field {field} adalah 1 karakter.'
-                    ]
-                ],
+                ]
+            ],
             'no_penerbit' => [
                 'label' => 'ID Penerbit',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'alamat' => [
                 'label' => 'Alamat',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'kota' => [
                 'label' => 'Kota',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
+                ]
+            ],
             'telepon' => [
                 'label' => 'Telepon',
                 'rules' => 'required',
                 'errors' => [
                     'required' => '{field} harus diisi!'
-                    ]
-                ],
-            ];
+                ]
+            ],
+        ];
 
         $validasi->setRules($aturan);
-        if($validasi->withRequest($this->request)->run()){
+        if ($validasi->withRequest($this->request)->run()) {
             $id_penerbit = $this->request->getPost('id_penerbit');
             $no_penerbit = $this->request->getPost('no_penerbit');
             $penerbit = $this->request->getPost('penerbit');
@@ -338,7 +338,7 @@ class Admin extends BaseController
                 'kota' => $kota,
                 'telepon' => $telepon,
             ];
-        
+
             $this->modelp->updatePenerbit($id_penerbit, $data);
             // return redirect()->to('/admin');
             $hasil['sukses'] = 'Berhasil mengedit penerbit';
